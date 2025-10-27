@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "invasionmod",
+  "version": "${version}",
+  "name": "InvasionMod",
+  "description": "A Fabric port scaffold for the InvasionMod project.",
+  "authors": [
+    "Lunartyx"
+  ],
+  "contact": {
+    "homepage": "https://github.com/Lunartyx",
+    "sources": "https://github.com/Lunartyx/InvasionMod_1-20-1"
+  },
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.lunartyx.invasionmod.InvasionMod"
+    ],
+    "client": [
+      "com.lunartyx.invasionmod.client.InvasionModClient"
+    ]
+  },
+  "mixins": [
+    "invasionmod.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "~${minecraft_version}",
+    "java": ">=17"
+  }
+}
