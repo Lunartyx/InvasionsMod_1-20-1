@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "invasionmod:block/nexus_top_off",
+    "bottom": "invasionmod:block/nexus_top_off",
+    "side": "invasionmod:block/nexus_side_off"
+  }
+}

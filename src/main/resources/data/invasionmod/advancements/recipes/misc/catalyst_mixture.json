@@ -1,0 +1,28 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_flesh": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          { "items": ["minecraft:rotten_flesh"] }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "invasionmod:catalyst_mixture"
+      }
+    }
+  },
+  "requirements": [
+    ["has_flesh", "has_recipe"]
+  ],
+  "rewards": {
+    "recipes": [
+      "invasionmod:catalyst_mixture",
+      "invasionmod:catalyst_mixture_mirrored"
+    ]
+  }
+}

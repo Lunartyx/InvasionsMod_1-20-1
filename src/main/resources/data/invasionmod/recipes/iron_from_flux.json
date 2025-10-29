@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    " X ",
+    "   "
+  ],
+  "key": {
+    "X": { "item": "invasionmod:rift_flux" }
+  },
+  "result": { "item": "minecraft:iron_ingot", "count": 4 }
+}

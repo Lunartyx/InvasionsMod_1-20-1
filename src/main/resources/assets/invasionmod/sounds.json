@@ -1,0 +1,90 @@
+{
+  "bigzombie1": {
+    "category": "hostile",
+    "sounds": ["invasionmod:bigzombie1"]
+  },
+  "chime1": {
+    "category": "hostile",
+    "sounds": ["invasionmod:chime1"]
+  },
+  "egghatch1": {
+    "category": "hostile",
+    "sounds": ["invasionmod:egghatch1"]
+  },
+  "egghatch2": {
+    "category": "hostile",
+    "sounds": ["invasionmod:egghatch2"]
+  },
+  "fireball1": {
+    "category": "hostile",
+    "sounds": ["invasionmod:fireball1"]
+  },
+  "rumble1": {
+    "category": "hostile",
+    "sounds": ["invasionmod:rumble1"]
+  },
+  "scrape1": {
+    "category": "hostile",
+    "sounds": ["invasionmod:scrape1"]
+  },
+  "scrape2": {
+    "category": "hostile",
+    "sounds": ["invasionmod:scrape2"]
+  },
+  "scrape3": {
+    "category": "hostile",
+    "sounds": ["invasionmod:scrape3"]
+  },
+  "v_death1": {
+    "category": "hostile",
+    "sounds": ["invasionmod:v_death1"]
+  },
+  "v_hiss1": {
+    "category": "hostile",
+    "sounds": ["invasionmod:v_hiss1"]
+  },
+  "v_longscreech1": {
+    "category": "hostile",
+    "sounds": ["invasionmod:v_longscreech1"]
+  },
+  "v_screech1": {
+    "category": "hostile",
+    "sounds": ["invasionmod:v_screech1"]
+  },
+  "v_screech2": {
+    "category": "hostile",
+    "sounds": ["invasionmod:v_screech2"]
+  },
+  "v_screech3": {
+    "category": "hostile",
+    "sounds": ["invasionmod:v_screech3"]
+  },
+  "v_squawk1": {
+    "category": "hostile",
+    "sounds": ["invasionmod:v_squawk1"]
+  },
+  "v_squawk2": {
+    "category": "hostile",
+    "sounds": ["invasionmod:v_squawk2"]
+  },
+  "v_squawk3": {
+    "category": "hostile",
+    "sounds": ["invasionmod:v_squawk3"]
+  },
+  "v_squawk4": {
+    "category": "hostile",
+    "sounds": ["invasionmod:v_squawk4"]
+  },
+  "zap1": {
+    "category": "hostile",
+    "sounds": ["invasionmod:zap1"]
+  },
+  "zap2": {
+    "category": "hostile",
+    "sounds": ["invasionmod:zap2"]
+  },
+  "zap3": {
+    "category": "hostile",
+    "sounds": ["invasionmod:zap3"]
+  }
+}

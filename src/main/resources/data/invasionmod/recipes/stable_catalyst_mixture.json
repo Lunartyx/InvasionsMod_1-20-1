@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "D#D",
+    " X "
+  ],
+  "key": {
+    "X": { "item": "minecraft:bowl" },
+    "#": { "item": "minecraft:coal" },
+    "D": { "item": "minecraft:bone" }
+  },
+  "result": { "item": "invasionmod:stable_catalyst_mixture" }
+}

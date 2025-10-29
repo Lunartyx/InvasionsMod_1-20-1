@@ -1,0 +1,25 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_flux": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          { "items": ["invasionmod:rift_flux"] }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "invasionmod:lapis_from_flux"
+      }
+    }
+  },
+  "requirements": [
+    ["has_flux", "has_recipe"]
+  ],
+  "rewards": {
+    "recipes": ["invasionmod:lapis_from_flux"]
+  }
+}

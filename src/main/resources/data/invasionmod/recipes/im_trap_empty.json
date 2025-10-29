@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " X ",
+    "X#X",
+    " X "
+  ],
+  "key": {
+    "X": { "item": "minecraft:iron_ingot" },
+    "#": { "item": "invasionmod:rift_flux" }
+  },
+  "result": {
+    "item": "invasionmod:im_trap",
+    "nbt": "{\"TrapType\":0}"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " D ",
+    " # ",
+    " X "
+  ],
+  "key": {
+    "D": {
+      "item": "invasionmod:probe",
+      "nbt": "{\"Mode\":\"adjuster\"}"
+    },
+    "#": { "item": "invasionmod:phase_crystal" },
+    "X": { "item": "minecraft:blaze_rod" }
+  },
+  "result": {
+    "item": "invasionmod:probe",
+    "nbt": "{\"Mode\":\"material\"}"
+  }
+}

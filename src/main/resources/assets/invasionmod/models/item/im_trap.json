@@ -1,0 +1,20 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "invasionmod:item/im_trap_empty"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "invasionmod:trap_type": 1
+      },
+      "model": "invasionmod:item/im_trap_rift"
+    },
+    {
+      "predicate": {
+        "invasionmod:trap_type": 2
+      },
+      "model": "invasionmod:item/im_trap_flame"
+    }
+  ]
+}

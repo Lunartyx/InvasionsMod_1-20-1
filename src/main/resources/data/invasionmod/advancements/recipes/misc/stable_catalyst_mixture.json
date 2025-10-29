@@ -1,0 +1,25 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_coal": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          { "items": ["minecraft:coal"] }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "invasionmod:stable_catalyst_mixture"
+      }
+    }
+  },
+  "requirements": [
+    ["has_coal", "has_recipe"]
+  ],
+  "rewards": {
+    "recipes": ["invasionmod:stable_catalyst_mixture"]
+  }
+}

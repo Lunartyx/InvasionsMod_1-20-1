@@ -1,0 +1,25 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_redstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          { "items": ["minecraft:redstone"] }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "invasionmod:phase_crystal_from_redstone"
+      }
+    }
+  },
+  "requirements": [
+    ["has_redstone", "has_recipe"]
+  ],
+  "rewards": {
+    "recipes": ["invasionmod:phase_crystal_from_redstone"]
+  }
+}

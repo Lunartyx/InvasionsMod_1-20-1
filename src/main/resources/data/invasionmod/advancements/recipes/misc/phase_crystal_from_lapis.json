@@ -1,0 +1,25 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_lapis": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          { "items": ["minecraft:lapis_lazuli"] }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "invasionmod:phase_crystal_from_lapis"
+      }
+    }
+  },
+  "requirements": [
+    ["has_lapis", "has_recipe"]
+  ],
+  "rewards": {
+    "recipes": ["invasionmod:phase_crystal_from_lapis"]
+  }
+}

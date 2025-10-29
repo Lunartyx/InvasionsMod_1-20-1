@@ -1,0 +1,25 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_blaze_rod": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          { "items": ["minecraft:blaze_rod"] }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "invasionmod:probe_material_mode"
+      }
+    }
+  },
+  "requirements": [
+    ["has_blaze_rod", "has_recipe"]
+  ],
+  "rewards": {
+    "recipes": ["invasionmod:probe_material_mode"]
+  }
+}
