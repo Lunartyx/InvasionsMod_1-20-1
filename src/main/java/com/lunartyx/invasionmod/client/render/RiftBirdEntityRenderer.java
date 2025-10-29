@@ -3,6 +3,7 @@ package com.lunartyx.invasionmod.client.render;
 import com.lunartyx.invasionmod.entity.custom.RiftBirdEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.model.ParrotEntityModel;
 import net.minecraft.util.Identifier;
