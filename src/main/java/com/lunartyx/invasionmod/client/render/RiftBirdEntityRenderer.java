@@ -19,4 +19,11 @@ public class RiftBirdEntityRenderer extends MobEntityRenderer<RiftBirdEntity, Pa
     public Identifier getTexture(RiftBirdEntity entity) {
         return TEXTURE;
     }
+
+    private static EntityModel<RiftBirdEntity> createModel(EntityRendererFactory.Context context) {
+        ParrotEntityModel model = new ParrotEntityModel(context.getPart(EntityModelLayers.PARROT));
+        @SuppressWarnings("unchecked")
+        EntityModel<RiftBirdEntity> casted = (EntityModel<RiftBirdEntity>) (EntityModel<?>) model;
+        return casted;
+    }
 }

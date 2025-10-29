@@ -246,7 +246,7 @@ public class RiftTrapEntity extends Entity {
     }
 
     @Override
-    public ActionResult interact(PlayerEntity player, Hand hand) {
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
         if (!stack.isOf(ModItems.PROBE)) {
             return ActionResult.PASS;

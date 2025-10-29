@@ -3,6 +3,7 @@ package com.lunartyx.invasionmod.client.render;
 import com.lunartyx.invasionmod.entity.custom.RiftGiantBirdEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.model.PhantomEntityModel;
 import net.minecraft.util.Identifier;
@@ -18,5 +19,12 @@ public class RiftGiantBirdEntityRenderer extends MobEntityRenderer<RiftGiantBird
     @Override
     public Identifier getTexture(RiftGiantBirdEntity entity) {
         return TEXTURE;
+    }
+
+    private static EntityModel<RiftGiantBirdEntity> createModel(EntityRendererFactory.Context context) {
+        PhantomEntityModel model = new PhantomEntityModel(context.getPart(EntityModelLayers.PHANTOM));
+        @SuppressWarnings("unchecked")
+        EntityModel<RiftGiantBirdEntity> casted = (EntityModel<RiftGiantBirdEntity>) (EntityModel<?>) model;
+        return casted;
     }
 }
