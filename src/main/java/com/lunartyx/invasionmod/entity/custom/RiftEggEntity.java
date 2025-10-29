@@ -37,7 +37,7 @@ public class RiftEggEntity extends PassiveEntity {
     @Override
     public void tick() {
         super.tick();
-        if (this.world.isClient) {
+        if (this.getWorld().isClient) {
             return;
         }
 
@@ -54,7 +54,7 @@ public class RiftEggEntity extends PassiveEntity {
     }
 
     private void hatch() {
-        if (!(this.world instanceof ServerWorld serverWorld)) {
+        if (!(this.getWorld() instanceof ServerWorld serverWorld)) {
             return;
         }
 
@@ -74,14 +74,14 @@ public class RiftEggEntity extends PassiveEntity {
     }
 
     @Override
-    protected void readCustomDataFromNbt(NbtCompound nbt) {
+    public void readCustomDataFromNbt(NbtCompound nbt) {
         this.hatchTime = nbt.getInt("HatchTime");
         this.ticks = nbt.getInt("Ticks");
         this.hatched = nbt.getBoolean("Hatched");
     }
 
     @Override
-    protected void writeCustomDataToNbt(NbtCompound nbt) {
+    public void writeCustomDataToNbt(NbtCompound nbt) {
         nbt.putInt("HatchTime", this.hatchTime);
         nbt.putInt("Ticks", this.ticks);
         nbt.putBoolean("Hatched", this.hatched);

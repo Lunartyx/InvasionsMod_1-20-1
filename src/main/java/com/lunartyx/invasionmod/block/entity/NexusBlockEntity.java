@@ -261,7 +261,7 @@ public class NexusBlockEntity extends BlockEntity implements Inventory, Extended
     }
 
     public int getComparatorOutput() {
-        return ScreenHandler.calculateComparatorOutput(this);
+        return ScreenHandler.calculateComparatorOutput((Inventory) this);
     }
 
     public PropertyDelegate getPropertyDelegate() {

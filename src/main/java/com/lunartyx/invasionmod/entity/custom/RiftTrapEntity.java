@@ -7,6 +7,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
@@ -15,7 +16,6 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
@@ -71,6 +71,7 @@ public class RiftTrapEntity extends Entity {
     public void tick() {
         super.tick();
 
+        World world = this.getWorld();
         if (world.isClient) {
             return;
         }
@@ -107,6 +108,7 @@ public class RiftTrapEntity extends Entity {
 
     private boolean canStayAtCurrentPosition() {
         BlockPos pos = getBlockPos();
+        World world = this.getWorld();
         BlockState stateBelow = world.getBlockState(pos.down());
         BlockState current = world.getBlockState(pos);
         if (!(current.isAir() || current.isOf(Blocks.FIRE))) {
@@ -116,6 +118,7 @@ public class RiftTrapEntity extends Entity {
     }
 
     public boolean canPlaceAt(BlockPos pos) {
+        World world = this.getWorld();
         BlockState target = world.getBlockState(pos);
         if (!target.isAir()) {
             return false;
@@ -146,7 +149,7 @@ public class RiftTrapEntity extends Entity {
         dataTracker.set(EMPTY, empty);
         if (empty) {
             emptyTicks = 0;
-            if (world instanceof ServerWorld serverWorld) {
+            if (this.getWorld() instanceof ServerWorld serverWorld) {
                 serverWorld.spawnParticles(ParticleTypes.CLOUD, getX(), getY() + 0.1D, getZ(), 4,
                         0.2D, 0.0D, 0.2D, 0.01D);
             }
@@ -164,7 +167,7 @@ public class RiftTrapEntity extends Entity {
                 float damage = trigger instanceof PlayerEntity ? 12.0F : 38.0F;
                 trigger.damage(getDamageSources().magic(), damage);
                 Box expanded = getBoundingBox().expand(1.9D, 1.0D, 1.9D);
-                List<LivingEntity> others = world.getNonSpectatingEntities(LivingEntity.class, expanded);
+                List<LivingEntity> others = this.getWorld().getNonSpectatingEntities(LivingEntity.class, expanded);
                 for (LivingEntity other : others) {
                     if (other == trigger || !other.isAlive()) {
                         continue;
@@ -172,8 +175,9 @@ public class RiftTrapEntity extends Entity {
                     other.damage(getDamageSources().magic(), 8.0F);
                     other.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 60, 1));
                 }
+                World world = this.getWorld();
                 world.playSound(null, getX(), getY(), getZ(), SoundEvents.BLOCK_GLASS_BREAK,
-                        SoundCategory.HOSTILE, 1.5F, 0.7F + world.random.nextFloat() * 0.3F);
+                        SoundCategory.HOSTILE, 1.5F, 0.7F + world.getRandom().nextFloat() * 0.3F);
                 if (world instanceof ServerWorld serverWorld) {
                     serverWorld.spawnParticles(ParticleTypes.PORTAL, getX(), getY() + 0.25D, getZ(), 50,
                             1.0D, 0.25D, 1.0D, 0.2D);
@@ -181,6 +185,7 @@ public class RiftTrapEntity extends Entity {
                 return true;
             }
             case FLAME -> {
+                World world = this.getWorld();
                 world.playSound(null, getX(), getY(), getZ(), SoundEvents.ITEM_FIRECHARGE_USE,
                         SoundCategory.HOSTILE, 1.0F, 1.1F);
                 igniteSurroundings();
@@ -201,6 +206,7 @@ public class RiftTrapEntity extends Entity {
 
     private void igniteSurroundings() {
         BlockPos origin = getBlockPos();
+        World world = this.getWorld();
         for (BlockPos target : BlockPos.iterate(origin.add(-1, 0, -1), origin.add(1, 1, 1))) {
             BlockState state = world.getBlockState(target);
             if (state.isAir()) {
@@ -210,7 +216,7 @@ public class RiftTrapEntity extends Entity {
     }
 
     private void dropEmptyTrap() {
-        if (!(world instanceof ServerWorld serverWorld)) {
+        if (!(this.getWorld() instanceof ServerWorld serverWorld)) {
             return;
         }
         ItemStack stack = new ItemStack(ModItems.IM_TRAP);
@@ -222,6 +228,7 @@ public class RiftTrapEntity extends Entity {
 
     @Override
     public void onPlayerCollision(PlayerEntity player) {
+        World world = this.getWorld();
         if (world.isClient || !isEmpty() || emptyTicks <= 30) {
             return;
         }
@@ -245,6 +252,7 @@ public class RiftTrapEntity extends Entity {
             return ActionResult.PASS;
         }
 
+        World world = this.getWorld();
         if (world.isClient) {
             return ActionResult.SUCCESS;
         }

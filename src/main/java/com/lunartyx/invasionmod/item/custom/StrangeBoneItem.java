@@ -1,7 +1,6 @@
 package com.lunartyx.invasionmod.item.custom;
 
 import com.lunartyx.invasionmod.block.entity.NexusBlockEntity;
-import com.lunartyx.invasionmod.entity.NexusBoundMob;
 import com.lunartyx.invasionmod.entity.custom.RiftWolfEntity;
 import com.lunartyx.invasionmod.registry.ModBlocks;
 import com.lunartyx.invasionmod.registry.ModEntityTypes;
@@ -51,9 +50,7 @@ public class StrangeBoneItem extends Item {
         riftWolf.setTamed(true);
         riftWolf.setOwnerUuid(user.getUuid());
         riftWolf.setHealth(riftWolf.getMaxHealth());
-        if (riftWolf instanceof NexusBoundMob boundMob) {
-            boundMob.invasionmod$setNexus(nexusPos);
-        }
+        riftWolf.invasionmod$setNexus(nexusPos);
 
         riftWolf.setCollarColor(wolf.getCollarColor());
 

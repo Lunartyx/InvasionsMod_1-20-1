@@ -62,10 +62,8 @@ public class ProbeItem extends Item {
 
     @Override
     public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
-        if (isIn(group)) {
-            stacks.add(createStack(Mode.ADJUSTER));
-            stacks.add(createStack(Mode.MATERIAL));
-        }
+        stacks.add(createStack(Mode.ADJUSTER));
+        stacks.add(createStack(Mode.MATERIAL));
     }
 
     @Override

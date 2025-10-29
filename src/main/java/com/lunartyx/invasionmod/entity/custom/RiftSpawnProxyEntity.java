@@ -23,8 +23,8 @@ public class RiftSpawnProxyEntity extends HostileEntity {
     @Override
     public void tick() {
         super.tick();
-        if (!this.world.isClient) {
-            NightSpawnManager.handleProxySpawn((ServerWorld) this.world, this.getBlockPos(), this.random);
+        if (!this.getWorld().isClient) {
+            NightSpawnManager.handleProxySpawn((ServerWorld) this.getWorld(), this.getBlockPos(), this.random);
             discard();
         }
     }

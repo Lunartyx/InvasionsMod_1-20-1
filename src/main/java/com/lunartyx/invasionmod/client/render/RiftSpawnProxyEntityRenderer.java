@@ -7,11 +7,12 @@ import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.model.ZombieEntityModel;
 import net.minecraft.util.Identifier;
 
-public class RiftSpawnProxyEntityRenderer extends MobEntityRenderer<RiftSpawnProxyEntity, ZombieEntityModel<RiftSpawnProxyEntity>> {
+@SuppressWarnings("rawtypes")
+public class RiftSpawnProxyEntityRenderer extends MobEntityRenderer<RiftSpawnProxyEntity, ZombieEntityModel> {
     private static final Identifier TEXTURE = new Identifier("minecraft", "textures/entity/zombie/zombie.png");
 
     public RiftSpawnProxyEntityRenderer(EntityRendererFactory.Context context) {
-        super(context, new ZombieEntityModel<>(context.getPart(EntityModelLayers.ZOMBIE)), 0.5F);
+        super(context, new ZombieEntityModel(context.getPart(EntityModelLayers.ZOMBIE)), 0.5F);
     }
 
     @Override

@@ -5,8 +5,8 @@ import com.lunartyx.invasionmod.entity.ai.MoveToNexusGoal;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
-import net.minecraft.entity.ai.goal.WatchClosestGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.HostileEntity;
@@ -48,7 +48,7 @@ public class RiftBirdEntity extends HostileEntity implements NexusBoundMob {
     protected void initGoals() {
         this.goalSelector.add(2, new MeleeAttackGoal(this, 1.2D, true));
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0D, 10.0F));
-        this.goalSelector.add(6, new WatchClosestGoal(this, PlayerEntity.class, 12.0F));
+        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 12.0F));
         this.goalSelector.add(7, new MoveToNexusGoal(this, this, 1.1D));
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
     }
@@ -60,16 +60,6 @@ public class RiftBirdEntity extends HostileEntity implements NexusBoundMob {
         navigation.setCanPathThroughDoors(false);
         navigation.setCanSwim(false);
         return navigation;
-    }
-
-    @Override
-    public boolean hasWings() {
-        return true;
-    }
-
-    @Override
-    public boolean isClimbing() {
-        return false;
     }
 
     @Override

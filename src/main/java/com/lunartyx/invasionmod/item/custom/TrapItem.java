@@ -31,11 +31,9 @@ public class TrapItem extends Item {
 
     @Override
     public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
-        if (isIn(group)) {
-            stacks.add(createStack(TrapType.EMPTY));
-            stacks.add(createStack(TrapType.RIFT));
-            stacks.add(createStack(TrapType.FLAME));
-        }
+        stacks.add(createStack(TrapType.EMPTY));
+        stacks.add(createStack(TrapType.RIFT));
+        stacks.add(createStack(TrapType.FLAME));
     }
 
     @Override
