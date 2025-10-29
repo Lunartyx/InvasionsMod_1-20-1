@@ -69,7 +69,7 @@ public final class InvasionCommands {
                                 .then(CommandManager.argument("tier", FloatArgumentType.floatArg(0.0F))
                                         .executes(ctx -> waveBuilderTest(ctx.getSource(), FloatArgumentType.getFloat(ctx, "difficulty"), FloatArgumentType.getFloat(ctx, "tier"), 160))
                                         .then(CommandManager.argument("length", IntegerArgumentType.integer(30, 600))
-                                                .executes(ctx -> waveBuilderTest(ctx.getSource(), FloatArgumentType.getFloat(ctx, "difficulty"), FloatArgumentType.getFloat(ctx, "tier"), IntegerArgumentType.getInteger(ctx, "length"))))))));
+                                                .executes(ctx -> waveBuilderTest(ctx.getSource(), FloatArgumentType.getFloat(ctx, "difficulty"), FloatArgumentType.getFloat(ctx, "tier"), IntegerArgumentType.getInteger(ctx, "length")))))));
 
         dispatcher.register(root);
     }

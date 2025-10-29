@@ -60,17 +60,17 @@ public class RiftWolfEntity extends WolfEntity implements NexusBoundMob {
         return false;
     }
 
-    @Override
+
     public boolean canBreed() {
         return false;
     }
 
-    @Override
+
     public boolean canMateWith(AnimalEntity other) {
         return false;
     }
 
-    @Override
+
     public boolean isAngryAt(PlayerEntity player) {
         return false;
     }

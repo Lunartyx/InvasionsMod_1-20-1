@@ -23,7 +23,7 @@ import com.lunartyx.invasionmod.registry.ModEntityTypes;
 import com.lunartyx.invasionmod.registry.ModScreenHandlers;
 import com.lunartyx.invasionmod.registry.ModItems;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.model.ModelPredicateProviderRegistry;
+import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.entity.CreeperEntityRenderer;
