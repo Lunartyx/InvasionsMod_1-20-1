@@ -1,0 +1,28 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_agent": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          { "items": ["invasionmod:damping_agent"] }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "invasionmod:strong_damping_agent_column"
+      }
+    }
+  },
+  "requirements": [
+    ["has_agent", "has_recipe"]
+  ],
+  "rewards": {
+    "recipes": [
+      "invasionmod:strong_damping_agent_column",
+      "invasionmod:strong_damping_agent_row"
+    ]
+  }
+}

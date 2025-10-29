@@ -3,7 +3,9 @@
   "minVersion": "0.8",
   "package": "com.lunartyx.invasionmod.mixin",
   "compatibilityLevel": "JAVA_17",
-  "mixins": [],
+  "mixins": [
+    "RecipeManagerAccessor"
+  ],
   "client": [],
   "injectors": {
     "defaultRequire": 1

@@ -1,0 +1,25 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_lava_bucket": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          { "items": ["minecraft:lava_bucket"] }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "invasionmod:im_trap_flame"
+      }
+    }
+  },
+  "requirements": [
+    ["has_lava_bucket", "has_recipe"]
+  ],
+  "rewards": {
+    "recipes": ["invasionmod:im_trap_flame"]
+  }
+}

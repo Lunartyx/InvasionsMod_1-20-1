@@ -1,0 +1,25 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_phase_crystal": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          { "items": ["invasionmod:phase_crystal"] }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "invasionmod:nexus"
+      }
+    }
+  },
+  "requirements": [
+    ["has_phase_crystal", "has_recipe"]
+  ],
+  "rewards": {
+    "recipes": ["invasionmod:nexus"]
+  }
+}

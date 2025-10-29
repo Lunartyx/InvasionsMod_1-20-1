@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "strong_damping_agent",
+  "pattern": [
+    " X ",
+    " X ",
+    " X "
+  ],
+  "key": {
+    "X": { "item": "invasionmod:damping_agent" }
+  },
+  "result": { "item": "invasionmod:strong_damping_agent" }
+}

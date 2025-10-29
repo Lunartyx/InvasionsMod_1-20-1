@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "invasionmod:item/adjuster"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "invasionmod:mode": 1.0
+      },
+      "model": "invasionmod:item/probe_material"
+    }
+  ]
+}

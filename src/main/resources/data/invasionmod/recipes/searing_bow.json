@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "X# ",
+    "X  "
+  ],
+  "key": {
+    "X": { "item": "invasionmod:rift_flux" },
+    "#": { "item": "minecraft:bow" }
+  },
+  "result": { "item": "invasionmod:searing_bow" }
+}

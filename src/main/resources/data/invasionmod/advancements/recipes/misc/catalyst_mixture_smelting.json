@@ -1,0 +1,25 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_mixture": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          { "items": ["invasionmod:catalyst_mixture"] }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "invasionmod:smelting/catalyst_mixture"
+      }
+    }
+  },
+  "requirements": [
+    ["has_mixture", "has_recipe"]
+  ],
+  "rewards": {
+    "recipes": ["invasionmod:smelting/catalyst_mixture"]
+  }
+}

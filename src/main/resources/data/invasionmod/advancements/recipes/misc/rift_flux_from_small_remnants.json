@@ -1,0 +1,25 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_remnants": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          { "items": ["invasionmod:small_remnants"] }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "invasionmod:rift_flux_from_small_remnants"
+      }
+    }
+  },
+  "requirements": [
+    ["has_remnants", "has_recipe"]
+  ],
+  "rewards": {
+    "recipes": ["invasionmod:rift_flux_from_small_remnants"]
+  }
+}

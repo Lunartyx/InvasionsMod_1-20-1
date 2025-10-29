@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "diamond_from_flux",
+  "pattern": [
+    "   ",
+    "XXX",
+    "   "
+  ],
+  "key": {
+    "X": { "item": "invasionmod:rift_flux" }
+  },
+  "result": { "item": "minecraft:diamond" }
+}
