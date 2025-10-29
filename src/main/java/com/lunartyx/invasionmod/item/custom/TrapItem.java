@@ -11,7 +11,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -30,12 +29,10 @@ public class TrapItem extends Item {
     }
 
     @Override
-    public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
-        if (isIn(group)) {
-            stacks.add(createStack(TrapType.EMPTY));
-            stacks.add(createStack(TrapType.RIFT));
-            stacks.add(createStack(TrapType.FLAME));
-        }
+    public void appendStacks(ItemGroup.DisplayContext context, ItemGroup.Entries entries) {
+        entries.add(createStack(TrapType.EMPTY));
+        entries.add(createStack(TrapType.RIFT));
+        entries.add(createStack(TrapType.FLAME));
     }
 
     @Override

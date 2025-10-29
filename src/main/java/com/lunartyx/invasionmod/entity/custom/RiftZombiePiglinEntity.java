@@ -25,7 +25,7 @@ public class RiftZombiePiglinEntity extends ZombifiedPiglinEntity implements Nex
 
     public RiftZombiePiglinEntity(EntityType<? extends ZombifiedPiglinEntity> entityType, World world) {
         super(entityType, world);
-        this.setPersistentAngerTarget(Util.NIL_UUID);
+        this.setAngryAt(Util.NIL_UUID);
         this.setAngerTime(200);
     }
 
@@ -48,18 +48,12 @@ public class RiftZombiePiglinEntity extends ZombifiedPiglinEntity implements Nex
 
     @Override
     public boolean isAngryAt(LivingEntity entity) {
-        if (entity instanceof PlayerEntity) {
-            return true;
-        }
-        return super.isAngryAt(entity);
+        return entity instanceof PlayerEntity;
     }
 
     @Override
-    public boolean shouldAngerAt(LivingEntity entity) {
-        if (entity instanceof PlayerEntity) {
-            return true;
-        }
-        return super.shouldAngerAt(entity);
+    protected boolean shouldAngerAt(LivingEntity entity) {
+        return entity instanceof PlayerEntity;
     }
 
     @Override
