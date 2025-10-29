@@ -29,7 +29,7 @@ public class SearingBowItem extends BowItem {
 
         boolean creativeOrInfinity = player.getAbilities().creativeMode
                 || EnchantmentHelper.getLevel(Enchantments.INFINITY, stack) > 0;
-        ItemStack arrowStack = player.getArrowType(stack);
+        ItemStack arrowStack = findArrow(player, stack);
 
         if (arrowStack.isEmpty() && !creativeOrInfinity) {
             return;
@@ -99,7 +99,7 @@ public class SearingBowItem extends BowItem {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
-        if (user.getAbilities().creativeMode || !user.getArrowType(stack).isEmpty()) {
+        if (user.getAbilities().creativeMode || !findArrow(user, stack).isEmpty()) {
             user.setCurrentHand(hand);
             return TypedActionResult.consume(stack);
         }
@@ -110,5 +110,13 @@ public class SearingBowItem extends BowItem {
         float f = (float) useTicks / 20.0F;
         f = (f * f + f * 2.0F) / 3.0F;
         return f;
+    }
+
+    private ItemStack findArrow(PlayerEntity player, ItemStack bowStack) {
+        ItemStack projectile = player.getProjectileType(bowStack);
+        if (!projectile.isEmpty()) {
+            return projectile;
+        }
+        return ItemStack.EMPTY;
     }
 }

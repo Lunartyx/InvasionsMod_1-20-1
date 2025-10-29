@@ -33,11 +33,11 @@ public class RiftBoltEntity extends Entity {
     @Override
     public void tick() {
         super.tick();
-        if (!this.world.isClient) {
+        if (!this.getWorld().isClient) {
             if (this.age == 0) {
-                this.world.playSound(null, this.getBlockPos(), SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.HOSTILE, 2.0F, 0.9F + this.random.nextFloat() * 0.2F);
+                this.getWorld().playSound(null, this.getBlockPos(), SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.HOSTILE, 2.0F, 0.9F + this.random.nextFloat() * 0.2F);
             }
-            if (this.world instanceof ServerWorld serverWorld) {
+            if (this.getWorld() instanceof ServerWorld serverWorld) {
                 serverWorld.spawnParticles(ParticleTypes.ELECTRIC_SPARK, this.getX(), this.getY(), this.getZ(), 6, 0.2D, 0.2D, 0.2D, 0.0D);
             }
         }

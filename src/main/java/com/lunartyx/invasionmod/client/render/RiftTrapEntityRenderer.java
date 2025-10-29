@@ -2,6 +2,7 @@ package com.lunartyx.invasionmod.client.render;
 
 import com.lunartyx.invasionmod.entity.custom.RiftTrapEntity;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -10,9 +11,11 @@ import net.minecraft.util.Identifier;
 
 public class RiftTrapEntityRenderer extends EntityRenderer<RiftTrapEntity> {
     private static final Identifier TEXTURE = new Identifier("minecraft", "textures/block/iron_bars.png");
+    private final BlockRenderManager blockRenderManager;
 
     public RiftTrapEntityRenderer(EntityRendererFactory.Context context) {
         super(context);
+        this.blockRenderManager = context.getBlockRenderManager();
     }
 
     @Override
@@ -20,7 +23,7 @@ public class RiftTrapEntityRenderer extends EntityRenderer<RiftTrapEntity> {
         matrices.push();
         matrices.scale(0.9F, 0.4F, 0.9F);
         matrices.translate(0.0D, 0.5D, 0.0D);
-        this.dispatcher.getBlockRenderManager().renderBlockAsEntity(Blocks.IRON_BARS.getDefaultState(), matrices, vertexConsumers, light, 0);
+        this.blockRenderManager.renderBlockAsEntity(Blocks.IRON_BARS.getDefaultState(), matrices, vertexConsumers, light, 0);
         matrices.pop();
     }
 

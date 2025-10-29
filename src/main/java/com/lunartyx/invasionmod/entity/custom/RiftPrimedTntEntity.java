@@ -18,7 +18,7 @@ public class RiftPrimedTntEntity extends TntEntity {
     public RiftPrimedTntEntity(World world, double x, double y, double z, LivingEntity igniter) {
         this(ModEntityTypes.RIFT_PRIMED_TNT, world);
         this.setFuse(40);
-        this.setPosition(x, y, z);
-        this.setOwner(igniter);
+        this.refreshPositionAndAngles(x, y, z, 0.0F, 0.0F);
+        this.setCausingEntity(igniter);
     }
 }

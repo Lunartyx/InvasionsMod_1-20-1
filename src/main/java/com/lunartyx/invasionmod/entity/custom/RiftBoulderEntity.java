@@ -41,9 +41,9 @@ public class RiftBoulderEntity extends ThrownItemEntity {
     @Override
     protected void onCollision(HitResult hitResult) {
         super.onCollision(hitResult);
-        if (!this.world.isClient) {
-            this.world.playSound(null, this.getBlockPos(), SoundEvents.BLOCK_STONE_BREAK, SoundCategory.HOSTILE, 1.0F, 0.75F);
-            if (this.world instanceof net.minecraft.server.world.ServerWorld serverWorld) {
+        if (!this.getWorld().isClient) {
+            this.getWorld().playSound(null, this.getBlockPos(), SoundEvents.BLOCK_STONE_BREAK, SoundCategory.HOSTILE, 1.0F, 0.75F);
+            if (this.getWorld() instanceof net.minecraft.server.world.ServerWorld serverWorld) {
                 serverWorld.spawnParticles(ParticleTypes.POOF, this.getX(), this.getY(), this.getZ(), 8, 0.2D, 0.2D, 0.2D, 0.0D);
             }
             this.discard();
@@ -51,7 +51,8 @@ public class RiftBoulderEntity extends ThrownItemEntity {
     }
 
     private DamageSource getDamageSource() {
-        return this.getOwner() == null ? this.getDamageSources().mobProjectile(this, this) : this.getDamageSources().mobProjectile(this, (LivingEntity) this.getOwner());
+        LivingEntity owner = this.getOwner() instanceof LivingEntity living ? living : null;
+        return this.getDamageSources().thrown(this, owner);
     }
 
     @Override

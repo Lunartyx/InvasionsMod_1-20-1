@@ -10,6 +10,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -40,8 +41,8 @@ public class RiftThrowerEntity extends PillagerEntity implements NexusBoundMob {
     }
 
     @Override
-    protected void initEquipment(LocalDifficulty difficulty) {
-        super.initEquipment(difficulty);
+    protected void initEquipment(Random random, LocalDifficulty difficulty) {
+        super.initEquipment(random, difficulty);
         this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.CROSSBOW));
     }
 

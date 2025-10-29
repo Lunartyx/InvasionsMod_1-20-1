@@ -10,11 +10,12 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.attribute.AttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.AbstractSkeletonEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.ZombieEntity;
+import net.minecraft.registry.Registries;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -36,7 +37,6 @@ import java.util.Objects;
  * converts weighted pattern entries into live Rift mobs at runtime.
  */
 public final class NightSpawnManager {
-    private static final Identifier BIOME_MODIFICATION_ID = new Identifier(InvasionMod.MOD_ID, "night_spawns");
     private static final Map<String, EntityType<? extends MobEntity>> PATTERN_MAP = createPatternMap();
 
     private static WeightedSelector<EntityType<? extends MobEntity>> selector = WeightedSelector.empty();
@@ -109,7 +109,7 @@ public final class NightSpawnManager {
     }
 
     private static void applyFollowRange(MobEntity mob, int followRange) {
-        AttributeInstance attribute = mob.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE);
+        EntityAttributeInstance attribute = mob.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE);
         if (attribute != null && followRange > 0) {
             attribute.setBaseValue(Math.max(attribute.getBaseValue(), followRange));
         }
@@ -120,13 +120,13 @@ public final class NightSpawnManager {
             return;
         }
 
-        AttributeInstance health = mob.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
+        EntityAttributeInstance health = mob.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
         if (health != null) {
             health.setBaseValue(health.getBaseValue() * scale);
             mob.setHealth((float) health.getValue());
         }
 
-        AttributeInstance damage = mob.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE);
+        EntityAttributeInstance damage = mob.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE);
         if (damage != null) {
             damage.setBaseValue(damage.getBaseValue() * scale);
         }
@@ -138,10 +138,10 @@ public final class NightSpawnManager {
         }
 
         if (mob instanceof ZombieEntity zombie) {
-            zombie.setShouldBurnInDay(false);
+            zombie.setCanBurnInDay(false);
         }
         if (mob instanceof AbstractSkeletonEntity skeleton) {
-            skeleton.setShouldBurnInDay(false);
+            skeleton.setCanBurnInDay(false);
         }
     }
 
@@ -162,11 +162,11 @@ public final class NightSpawnManager {
                 BiomeKeys.SPARSE_JUNGLE
         );
 
-        BiomeModifications.create(BIOME_MODIFICATION_ID)
-                .addSpawn(biomeSelector, SpawnGroup.MONSTER, ModEntityTypes.RIFT_SPAWN_PROXY, settings.nightMobSpawnChance(), 1, 1)
-                .addSpawn(biomeSelector, SpawnGroup.MONSTER, ModEntityTypes.RIFT_ZOMBIE, 1, 1, 1)
-                .addSpawn(biomeSelector, SpawnGroup.MONSTER, ModEntityTypes.RIFT_SPIDER, 1, 1, 1)
-                .addSpawn(biomeSelector, SpawnGroup.MONSTER, ModEntityTypes.RIFT_SKELETON, 1, 1, 1);
+        BiomeModifications.addSpawn(biomeSelector, SpawnGroup.MONSTER, ModEntityTypes.RIFT_SPAWN_PROXY,
+                settings.nightMobSpawnChance(), 1, 1);
+        BiomeModifications.addSpawn(biomeSelector, SpawnGroup.MONSTER, ModEntityTypes.RIFT_ZOMBIE, 1, 1, 1);
+        BiomeModifications.addSpawn(biomeSelector, SpawnGroup.MONSTER, ModEntityTypes.RIFT_SPIDER, 1, 1, 1);
+        BiomeModifications.addSpawn(biomeSelector, SpawnGroup.MONSTER, ModEntityTypes.RIFT_SKELETON, 1, 1, 1);
 
         spawnRulesRegistered = true;
     }
@@ -182,7 +182,7 @@ public final class NightSpawnManager {
             }
             int override = settings.mobLimitOverride();
             if (override > 0) {
-                GameRules.IntRule rule = world.getGameRules().get(GameRules.SPAWN_LIMIT_MONSTER);
+                GameRules.IntRule rule = world.getGameRules().get(GameRules.MONSTER_SPAWN_LIMIT);
                 if (rule.get() != override) {
                     rule.set(override, server);
                 }
@@ -230,7 +230,7 @@ public final class NightSpawnManager {
         }
         Identifier identifier = Identifier.tryParse(pattern);
         if (identifier != null) {
-            EntityType<?> direct = EntityType.get(identifier).orElse(null);
+            EntityType<?> direct = Registries.ENTITY_TYPE.getOrEmpty(identifier).orElse(null);
             if (direct instanceof EntityType<? extends MobEntity> mobType) {
                 return mobType;
             }
