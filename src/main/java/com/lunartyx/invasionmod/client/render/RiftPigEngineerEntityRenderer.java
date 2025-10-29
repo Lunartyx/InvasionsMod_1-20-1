@@ -8,11 +8,12 @@ import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.model.PiglinEntityModel;
 import net.minecraft.util.Identifier;
 
-public class RiftPigEngineerEntityRenderer extends MobEntityRenderer<RiftPigEngineerEntity, PiglinEntityModel<RiftPigEngineerEntity>> {
+@SuppressWarnings("rawtypes")
+public class RiftPigEngineerEntityRenderer extends MobEntityRenderer<RiftPigEngineerEntity, PiglinEntityModel> {
     private static final Identifier TEXTURE = new Identifier(InvasionMod.MOD_ID, "textures/entity/rift_pig_engineer.png");
 
     public RiftPigEngineerEntityRenderer(EntityRendererFactory.Context context) {
-        super(context, new PiglinEntityModel<>(context.getPart(EntityModelLayers.ZOMBIFIED_PIGLIN)), 0.5F);
+        super(context, new PiglinEntityModel(context.getPart(EntityModelLayers.ZOMBIFIED_PIGLIN)), 0.5F);
     }
 
     @Override

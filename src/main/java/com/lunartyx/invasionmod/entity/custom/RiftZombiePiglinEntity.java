@@ -3,7 +3,6 @@ package com.lunartyx.invasionmod.entity.custom;
 import com.lunartyx.invasionmod.entity.NexusBoundMob;
 import com.lunartyx.invasionmod.entity.ai.MoveToNexusGoal;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.mob.ZombifiedPiglinEntity;
@@ -47,13 +46,13 @@ public class RiftZombiePiglinEntity extends ZombifiedPiglinEntity implements Nex
     }
 
     @Override
-    public boolean isAngryAt(LivingEntity entity) {
-        return entity instanceof PlayerEntity;
+    public boolean isAngryAt(PlayerEntity player) {
+        return true;
     }
 
     @Override
-    protected boolean shouldAngerAt(LivingEntity entity) {
-        return entity instanceof PlayerEntity;
+    protected boolean shouldAngerAt(PlayerEntity player) {
+        return true;
     }
 
     @Override

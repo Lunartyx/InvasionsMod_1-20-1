@@ -60,9 +60,9 @@ public class ProbeItem extends Item {
     }
 
     @Override
-    public void appendStacks(ItemGroup.DisplayContext context, ItemGroup.Entries entries) {
-        entries.add(createStack(Mode.ADJUSTER));
-        entries.add(createStack(Mode.MATERIAL));
+    public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
+        stacks.add(createStack(Mode.ADJUSTER));
+        stacks.add(createStack(Mode.MATERIAL));
     }
 
     @Override

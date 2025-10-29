@@ -29,10 +29,10 @@ public class TrapItem extends Item {
     }
 
     @Override
-    public void appendStacks(ItemGroup.DisplayContext context, ItemGroup.Entries entries) {
-        entries.add(createStack(TrapType.EMPTY));
-        entries.add(createStack(TrapType.RIFT));
-        entries.add(createStack(TrapType.FLAME));
+    public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
+        stacks.add(createStack(TrapType.EMPTY));
+        stacks.add(createStack(TrapType.RIFT));
+        stacks.add(createStack(TrapType.FLAME));
     }
 
     @Override
