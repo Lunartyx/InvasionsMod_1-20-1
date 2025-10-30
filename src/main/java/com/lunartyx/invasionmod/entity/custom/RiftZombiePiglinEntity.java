@@ -13,12 +13,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * High-tier warrior that mirrors the relentless aggression of the 1.7.10
- * zombie pigman variants. The Fabric port keeps them permanently enraged at
- * players while still benefiting from the vanilla piglin animations and
- * equipment handling.
- */
 public class RiftZombiePiglinEntity extends ZombifiedPiglinEntity implements NexusBoundMob {
     @Nullable
     private BlockPos nexusPos;
@@ -41,18 +35,15 @@ public class RiftZombiePiglinEntity extends ZombifiedPiglinEntity implements Nex
     protected void mobTick() {
         super.mobTick();
         if (!this.getWorld().isClient) {
-            // Keep anger refreshed so the mob always treats players as hostile.
+            // permanent wütend halten
             this.setAngerTime(200);
         }
     }
 
-    @Override
-    public boolean isAngryAt(LivingEntity entity) {
-        return true;
-    }
+    // isAngryAt(...) gibt es in 1.20.1 nicht als Override -> entfernen
 
     @Override
-    protected boolean shouldAngerAt(LivingEntity entity) {
+    public boolean shouldAngerAt(LivingEntity entity) {
         return true;
     }
 

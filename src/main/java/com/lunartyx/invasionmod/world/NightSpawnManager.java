@@ -12,6 +12,8 @@ import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.AbstractSkeletonEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.ZombieEntity;
@@ -20,7 +22,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeKeys;
 
@@ -31,11 +32,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * Recreates the legacy configurable night-spawn logic. When enabled in the
- * config the manager injects the spawn proxy into select Overworld biomes and
- * converts weighted pattern entries into live Rift mobs at runtime.
- */
 public final class NightSpawnManager {
     private static final Map<String, EntityType<? extends MobEntity>> PATTERN_MAP = createPatternMap();
 
@@ -44,8 +40,7 @@ public final class NightSpawnManager {
     private static boolean spawnRulesRegistered;
     private static boolean worldEventsRegistered;
 
-    private NightSpawnManager() {
-    }
+    private NightSpawnManager() {}
 
     public static void initialize() {
         InvasionConfig config = InvasionConfigManager.getConfig();
@@ -63,17 +58,13 @@ public final class NightSpawnManager {
     }
 
     public static void handleProxySpawn(ServerWorld world, BlockPos origin, Random random) {
-        if (!isActive()) {
-            return;
-        }
+        if (!isActive()) return;
 
         int maxGroup = Math.max(1, settings.nightMobMaxGroupSize());
         int mobCount = random.nextInt(maxGroup) + 1;
         for (int i = 0; i < mobCount; i++) {
             EntityType<? extends MobEntity> type = selector.pick(random);
-            if (type == null) {
-                continue;
-            }
+            if (type == null) continue;
             spawnConfiguredMob(world, origin, random, type);
         }
     }
@@ -85,9 +76,7 @@ public final class NightSpawnManager {
     private static void spawnConfiguredMob(ServerWorld world, BlockPos origin, Random random, EntityType<? extends MobEntity> type) {
         BlockPos spawnPos = offsetSpawnPos(world, origin, random);
         MobEntity mob = type.spawn(world, null, null, spawnPos, SpawnReason.EVENT, true, true);
-        if (mob == null) {
-            return;
-        }
+        if (mob == null) return;
 
         mob.setPersistent();
         applyFollowRange(mob, settings.nightMobSightRange());
@@ -116,9 +105,7 @@ public final class NightSpawnManager {
     }
 
     private static void applyStatScaling(MobEntity mob, float scale) {
-        if (scale == 1.0F) {
-            return;
-        }
+        if (scale == 1.0F) return;
 
         EntityAttributeInstance health = mob.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
         if (health != null) {
@@ -132,23 +119,22 @@ public final class NightSpawnManager {
         }
     }
 
+    // --- FIX: 1.20.1 hat keinen Setter für "Burn in Day" ---
     private static void applyBurnBehaviour(MobEntity mob, boolean burnsInDay) {
-        if (burnsInDay) {
-            return;
-        }
-
-        if (mob instanceof ZombieEntity zombie) {
-            zombie.setShouldBurnInDay(false);
-        }
-        if (mob instanceof AbstractSkeletonEntity skeleton) {
-            skeleton.setShouldBurnInDay(false);
+        if (!burnsInDay && (mob instanceof ZombieEntity || mob instanceof AbstractSkeletonEntity)) {
+            mob.addStatusEffect(new StatusEffectInstance(
+                    StatusEffects.FIRE_RESISTANCE,
+                    20 * 60 * 60, // 1 Stunde
+                    0,
+                    true,  // ambient
+                    false, // keine Partikel
+                    false  // kein Icon
+            ));
         }
     }
 
     private static void registerBiomeSpawns(InvasionConfig.NightSpawns settings) {
-        if (spawnRulesRegistered) {
-            return;
-        }
+        if (spawnRulesRegistered) return;
 
         var biomeSelector = BiomeSelectors.includeByKey(
                 BiomeKeys.PLAINS,
@@ -162,8 +148,7 @@ public final class NightSpawnManager {
                 BiomeKeys.SPARSE_JUNGLE
         );
 
-        BiomeModifications.addSpawn(biomeSelector, SpawnGroup.MONSTER, ModEntityTypes.RIFT_SPAWN_PROXY,
-                settings.nightMobSpawnChance(), 1, 1);
+        BiomeModifications.addSpawn(biomeSelector, SpawnGroup.MONSTER, ModEntityTypes.RIFT_SPAWN_PROXY, settings.nightMobSpawnChance(), 1, 1);
         BiomeModifications.addSpawn(biomeSelector, SpawnGroup.MONSTER, ModEntityTypes.RIFT_ZOMBIE, 1, 1, 1);
         BiomeModifications.addSpawn(biomeSelector, SpawnGroup.MONSTER, ModEntityTypes.RIFT_SPIDER, 1, 1, 1);
         BiomeModifications.addSpawn(biomeSelector, SpawnGroup.MONSTER, ModEntityTypes.RIFT_SKELETON, 1, 1, 1);
@@ -171,21 +156,19 @@ public final class NightSpawnManager {
         spawnRulesRegistered = true;
     }
 
+    // --- FIX: 1.20.1 hat kein GameRule "SPAWN_CAP_MONSTER" ---
     private static void registerWorldEvents(InvasionConfig.NightSpawns settings) {
-        if (worldEventsRegistered) {
-            return;
-        }
+        if (worldEventsRegistered) return;
 
         ServerWorldEvents.LOAD.register((server, world) -> {
-            if (!isActive() || world.getRegistryKey() != World.OVERWORLD) {
-                return;
-            }
+            if (!isActive() || world.getRegistryKey() != World.OVERWORLD) return;
+
             int override = settings.mobLimitOverride();
             if (override > 0) {
-                GameRules.IntRule rule = world.getGameRules().get(GameRules.SPAWN_CAP_MONSTER);
-                if (rule.get() != override) {
-                    rule.set(override, server);
-                }
+                InvasionMod.LOGGER.warn(
+                        "mobLimitOverride={} konfiguriert, aber auf MC 1.20.1 nicht verfügbar – wird ignoriert.",
+                        override
+                );
             }
         });
 
@@ -200,34 +183,25 @@ public final class NightSpawnManager {
         }
 
         for (InvasionConfig.NightSpawnEntry entry : entries) {
-            if (entry == null) {
-                continue;
-            }
+            if (entry == null) continue;
             EntityType<? extends MobEntity> type = resolvePattern(entry.pattern());
             if (type == null) {
                 InvasionMod.LOGGER.warn("Unknown night spawn pattern '{}'; skipping", entry.pattern());
                 continue;
             }
-            if (entry.weight() <= 0.0F) {
-                continue;
-            }
+            if (entry.weight() <= 0.0F) continue;
             selector.add(type, entry.weight());
         }
 
-        if (selector.isEmpty()) {
-            selector.add(ModEntityTypes.RIFT_ZOMBIE, 1.0F);
-        }
+        if (selector.isEmpty()) selector.add(ModEntityTypes.RIFT_ZOMBIE, 1.0F);
         return selector;
     }
 
     private static EntityType<? extends MobEntity> resolvePattern(String pattern) {
-        if (pattern == null) {
-            return null;
-        }
+        if (pattern == null) return null;
         EntityType<? extends MobEntity> mapped = PATTERN_MAP.get(pattern.toLowerCase(Locale.ROOT));
-        if (mapped != null) {
-            return mapped;
-        }
+        if (mapped != null) return mapped;
+
         Identifier identifier = Identifier.tryParse(pattern);
         if (identifier != null) {
             EntityType<?> direct = Registries.ENTITY_TYPE.getOrEmpty(identifier).orElse(null);
@@ -263,34 +237,22 @@ public final class NightSpawnManager {
         private final List<Entry<T>> entries;
         private float totalWeight;
 
-        private WeightedSelector() {
-            this.entries = new ArrayList<>();
-        }
+        private WeightedSelector() { this.entries = new ArrayList<>(); }
 
-        static <T> WeightedSelector<T> empty() {
-            return new WeightedSelector<>();
-        }
+        static <T> WeightedSelector<T> empty() { return new WeightedSelector<>(); }
 
         void add(T value, float weight) {
-            if (value == null || weight <= 0.0F) {
-                return;
-            }
+            if (value == null || weight <= 0.0F) return;
             entries.add(new Entry<>(value, weight));
             totalWeight += weight;
         }
 
-        boolean isEmpty() {
-            return entries.isEmpty();
-        }
+        boolean isEmpty() { return entries.isEmpty(); }
 
-        int size() {
-            return entries.size();
-        }
+        int size() { return entries.size(); }
 
         T pick(Random random) {
-            if (entries.isEmpty()) {
-                return null;
-            }
+            if (entries.isEmpty()) return null;
             float target = random.nextFloat() * (totalWeight <= 0.0F ? entries.size() : totalWeight);
             if (totalWeight <= 0.0F) {
                 int index = Math.min(entries.size() - 1, (int) target);
@@ -299,17 +261,13 @@ public final class NightSpawnManager {
             float cumulative = 0.0F;
             for (Entry<T> entry : entries) {
                 cumulative += entry.weight();
-                if (target <= cumulative) {
-                    return entry.value();
-                }
+                if (target <= cumulative) return entry.value();
             }
             return entries.get(entries.size() - 1).value();
         }
 
         private record Entry<T>(T value, float weight) {
-            Entry {
-                Objects.requireNonNull(value, "value");
-            }
+            Entry { Objects.requireNonNull(value, "value"); }
         }
     }
 }
