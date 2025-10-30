@@ -3,17 +3,16 @@ package com.lunartyx.invasionmod.client.render;
 import com.lunartyx.invasionmod.entity.custom.RiftGiantBirdEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.model.PhantomEntityModel;
+import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.util.Identifier;
 
-@SuppressWarnings("rawtypes")
-public class RiftGiantBirdEntityRenderer extends MobEntityRenderer<RiftGiantBirdEntity, PhantomEntityModel> {
+public class RiftGiantBirdEntityRenderer extends MobEntityRenderer<RiftGiantBirdEntity, SinglePartEntityModel<RiftGiantBirdEntity>> {
     private static final Identifier TEXTURE = new Identifier("minecraft", "textures/entity/phantom.png");
 
     public RiftGiantBirdEntityRenderer(EntityRendererFactory.Context context) {
-        super(context, new PhantomEntityModel(context.getPart(EntityModelLayers.PHANTOM)), 0.9F);
+        super(context, castModel(new PhantomEntityModel(context.getPart(EntityModelLayers.PHANTOM))), 0.9F);
     }
 
     @Override
@@ -21,10 +20,8 @@ public class RiftGiantBirdEntityRenderer extends MobEntityRenderer<RiftGiantBird
         return TEXTURE;
     }
 
-    private static EntityModel<RiftGiantBirdEntity> createModel(EntityRendererFactory.Context context) {
-        PhantomEntityModel model = new PhantomEntityModel(context.getPart(EntityModelLayers.PHANTOM));
-        @SuppressWarnings("unchecked")
-        EntityModel<RiftGiantBirdEntity> casted = (EntityModel<RiftGiantBirdEntity>) (EntityModel<?>) model;
-        return casted;
+    @SuppressWarnings("unchecked")
+    private static SinglePartEntityModel<RiftGiantBirdEntity> castModel(SinglePartEntityModel<?> model) {
+        return (SinglePartEntityModel<RiftGiantBirdEntity>) model;
     }
 }

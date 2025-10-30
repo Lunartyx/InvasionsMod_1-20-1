@@ -138,10 +138,10 @@ public final class NightSpawnManager {
         }
 
         if (mob instanceof ZombieEntity zombie) {
-            zombie.setCanBurnInDay(false);
+            zombie.setShouldBurnInDay(false);
         }
         if (mob instanceof AbstractSkeletonEntity skeleton) {
-            skeleton.setCanBurnInDay(false);
+            skeleton.setShouldBurnInDay(false);
         }
     }
 
@@ -182,7 +182,7 @@ public final class NightSpawnManager {
             }
             int override = settings.mobLimitOverride();
             if (override > 0) {
-                GameRules.IntRule rule = world.getGameRules().get(GameRules.MONSTER_SPAWN_LIMIT);
+                GameRules.IntRule rule = world.getGameRules().get(GameRules.SPAWN_CAP_MONSTER);
                 if (rule.get() != override) {
                     rule.set(override, server);
                 }
@@ -231,7 +231,9 @@ public final class NightSpawnManager {
         Identifier identifier = Identifier.tryParse(pattern);
         if (identifier != null) {
             EntityType<?> direct = Registries.ENTITY_TYPE.getOrEmpty(identifier).orElse(null);
-            if (direct instanceof EntityType<? extends MobEntity> mobType) {
+            if (direct != null && MobEntity.class.isAssignableFrom(direct.getBaseClass())) {
+                @SuppressWarnings("unchecked")
+                EntityType<? extends MobEntity> mobType = (EntityType<? extends MobEntity>) direct;
                 return mobType;
             }
         }

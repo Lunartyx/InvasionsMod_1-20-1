@@ -5,14 +5,14 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.model.ParrotEntityModel;
+import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.util.Identifier;
 
-@SuppressWarnings("rawtypes")
-public class RiftBirdEntityRenderer extends MobEntityRenderer<RiftBirdEntity, ParrotEntityModel> {
+public class RiftBirdEntityRenderer extends MobEntityRenderer<RiftBirdEntity, SinglePartEntityModel<RiftBirdEntity>> {
     private static final Identifier TEXTURE = new Identifier("minecraft", "textures/entity/parrot/parrot_blue.png");
 
     public RiftBirdEntityRenderer(EntityRendererFactory.Context context) {
-        super(context, new ParrotEntityModel(context.getPart(EntityModelLayers.PARROT)), 0.4F);
+        super(context, castModel(new ParrotEntityModel(context.getPart(EntityModelLayers.PARROT))), 0.4F);
     }
 
     @Override
@@ -20,10 +20,8 @@ public class RiftBirdEntityRenderer extends MobEntityRenderer<RiftBirdEntity, Pa
         return TEXTURE;
     }
 
-    private static EntityModel<RiftBirdEntity> createModel(EntityRendererFactory.Context context) {
-        ParrotEntityModel model = new ParrotEntityModel(context.getPart(EntityModelLayers.PARROT));
-        @SuppressWarnings("unchecked")
-        EntityModel<RiftBirdEntity> casted = (EntityModel<RiftBirdEntity>) (EntityModel<?>) model;
-        return casted;
+    @SuppressWarnings("unchecked")
+    private static SinglePartEntityModel<RiftBirdEntity> castModel(SinglePartEntityModel<?> model) {
+        return (SinglePartEntityModel<RiftBirdEntity>) model;
     }
 }
