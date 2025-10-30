@@ -4,7 +4,6 @@ import com.lunartyx.invasionmod.entity.custom.RiftTrapEntity;
 import com.lunartyx.invasionmod.registry.ModEntityTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
@@ -27,13 +26,6 @@ public class TrapItem extends Item {
     @Override
     public Text getName(ItemStack stack) {
         return Text.translatable("item.invasionmod.im_trap." + getTrapType(stack).translationKey());
-    }
-
-    @Override
-    public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
-        stacks.add(createStack(TrapType.EMPTY));
-        stacks.add(createStack(TrapType.RIFT));
-        stacks.add(createStack(TrapType.FLAME));
     }
 
     @Override

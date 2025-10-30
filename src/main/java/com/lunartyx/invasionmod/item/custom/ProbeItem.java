@@ -6,7 +6,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
@@ -58,12 +57,6 @@ public class ProbeItem extends Item {
     @Override
     public Text getName(ItemStack stack) {
         return Text.translatable("item.invasionmod.probe." + getMode(stack).translationKey());
-    }
-
-    @Override
-    public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
-        stacks.add(createStack(Mode.ADJUSTER));
-        stacks.add(createStack(Mode.MATERIAL));
     }
 
     @Override

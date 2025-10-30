@@ -19,6 +19,6 @@ public class RiftPrimedTntEntity extends TntEntity {
         this(ModEntityTypes.RIFT_PRIMED_TNT, world);
         this.setFuse(40);
         this.refreshPositionAndAngles(x, y, z, 0.0F, 0.0F);
-        this.setCausingEntity(igniter);
+        this.setOwner(igniter);
     }
 }
