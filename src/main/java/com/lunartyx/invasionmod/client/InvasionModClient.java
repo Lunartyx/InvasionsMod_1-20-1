@@ -30,6 +30,7 @@ import net.minecraft.client.render.entity.CreeperEntityRenderer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.SkeletonEntityRenderer;
 import net.minecraft.client.render.entity.TntEntityRenderer;
+import net.minecraft.item.BowItem;
 import net.minecraft.util.Identifier;
 
 public class InvasionModClient implements ClientModInitializer {
@@ -60,5 +61,18 @@ public class InvasionModClient implements ClientModInitializer {
                 (stack, world, entity, seed) -> ProbeItem.getMode(stack) == ProbeItem.Mode.ADJUSTER ? 0.0F : 1.0F);
         ModelPredicateProviderRegistry.register(ModItems.IM_TRAP, new Identifier(InvasionMod.MOD_ID, "trap_type"),
                 (stack, world, entity, seed) -> TrapItem.getTrapType(stack).id());
+        ModelPredicateProviderRegistry.register(ModItems.SEARING_BOW, new Identifier("pull"),
+                (stack, world, entity, seed) -> {
+                    if (entity == null) {
+                        return 0.0F;
+                    }
+                    if (entity.getActiveItem() != stack) {
+                        return 0.0F;
+                    }
+                    return BowItem.getPullProgress(stack.getMaxUseTime() - entity.getItemUseTimeLeft());
+                });
+        ModelPredicateProviderRegistry.register(ModItems.SEARING_BOW, new Identifier("pulling"),
+                (stack, world, entity, seed) -> entity != null && entity.isUsingItem() && entity.getActiveItem() == stack ? 1.0F
+                        : 0.0F);
     }
 }
